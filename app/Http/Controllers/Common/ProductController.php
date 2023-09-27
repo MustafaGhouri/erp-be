@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator; 
-use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+// use Illuminate\Support\Facades\Storage;
+// use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ProductController extends Controller
 {
@@ -47,57 +47,57 @@ class ProductController extends Controller
         }
     }
 
-    public function generateQRCode($id, $slug)
-    {
-        try {
-            // Generate a unique filename for the QR code image
-            $filename = $slug . '.png';
+    // public function generateQRCode($id, $slug)
+    // {
+    //     try {
+    //         // Generate a unique filename for the QR code image
+    //         $filename = $slug . '.png';
 
-            // Define the directory path to save the QR code
-            $directory = public_path('uploads/qrcodes');
-            $logo = public_path('uploads/website/logo.png');
-            // $qrCode = QrCode::size(200)
-            //     ->errorCorrection('M')
-            //     ->generate($id);
-            // Merge the QR code with the logo
+    //         // Define the directory path to save the QR code
+    //         $directory = public_path('uploads/qrcodes');
+    //         $logo = public_path('uploads/website/logo.png');
+    //         // $qrCode = QrCode::size(200)
+    //         //     ->errorCorrection('M')
+    //         //     ->generate($id);
+    //         // Merge the QR code with the logo
 
-            // $qrCode = QrCode::size(200)
-            //     ->format('png')
-            //     // ->merge('/public/uploads/website/logo.png')
-            //     ->errorCorrection('M')
-            //     ->generate(
-            //         $id
-            //     );
+    //         // $qrCode = QrCode::size(200)
+    //         //     ->format('png')
+    //         //     // ->merge('/public/uploads/website/logo.png')
+    //         //     ->errorCorrection('M')
+    //         //     ->generate(
+    //         //         $id
+    //         //     );
 
-            $image = QrCode::format('png')
-                ->merge($logo, 0.1, true)
-                ->size(200)->errorCorrection('H')
-                ->generate($id);
+    //         $image = QrCode::format('png')
+    //             ->merge($logo, 0.1, true)
+    //             ->size(200)->errorCorrection('H')
+    //             ->generate($id);
 
-            Storage::disk('local')->put($filename, $image);
+    //         Storage::disk('local')->put($filename, $image);
 
 
 
-            // // Save the QR code image to the directory
-            file_put_contents($directory . '/' . $filename, $image);
+    //         // // Save the QR code image to the directory
+    //         file_put_contents($directory . '/' . $filename, $image);
 
-            // Find the product by its ID
-            $product = Product::find($id);
+    //         // Find the product by its ID
+    //         $product = Product::find($id);
 
-            if ($product) {
-                // Update the product with the QR code path in the database
-                $product->update([
-                    'qrcode' => $filename
-                ]);
+    //         if ($product) {
+    //             // Update the product with the QR code path in the database
+    //             $product->update([
+    //                 'qrcode' => $filename
+    //             ]);
 
-                return response()->json(['status' => "success", "message" =>  'QR Code generated']);
-            } else {
-                return response()->json(['status' => "warning", "message" =>  'Product not found']);
-            }
-        } catch (\Exception $th) {
-            return response()->json(['status' => "warning", "message" =>   $th->getMessage()]);
-        }
-    }
+    //             return response()->json(['status' => "success", "message" =>  'QR Code generated']);
+    //         } else {
+    //             return response()->json(['status' => "warning", "message" =>  'Product not found']);
+    //         }
+    //     } catch (\Exception $th) {
+    //         return response()->json(['status' => "warning", "message" =>   $th->getMessage()]);
+    //     }
+    // }
 
 
     public function list()
