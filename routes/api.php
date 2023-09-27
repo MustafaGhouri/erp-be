@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AllAuthController;
-use App\Http\Controllers\common\ProductCategroyController;
-use App\Http\Controllers\common\ProductController;
+use App\Http\Controllers\Common\ProductCategroyController;
+use App\Http\Controllers\c\Common\ProductController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
