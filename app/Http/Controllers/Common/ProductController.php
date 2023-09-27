@@ -64,21 +64,9 @@ class ProductController extends Controller
             // Define the directory path to save the QR code
             $directory = public_path('uploads/qrcodes');
             $logo = public_path('uploads/website/logo.png');
-            // $qrCode = QrCode::size(200)
-            //     ->errorCorrection('M')
-            //     ->generate($id);
-            // Merge the QR code with the logo
-
-            // $qrCode = QrCode::size(200)
-            //     ->format('png')
-            //     // ->merge('/public/uploads/website/logo.png')
-            //     ->errorCorrection('M')
-            //     ->generate(
-            //         $id
-            //     );
-
+         
             $image = QrCode::format('png')
-                ->merge($logo, 0.1, true)
+                ->merge($logo, 1, true)
                 ->size(200)->errorCorrection('H')
                 ->generate($id);
 
