@@ -33,7 +33,7 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 });
 // Auth End
 
-// SuperAdmin Start
+// Admin Start
 Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], function () {
 
     //Product Routes Start
@@ -55,4 +55,4 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
 
 
 });
-// SuperAdmin End
+// Admin End

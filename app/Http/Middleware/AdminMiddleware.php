@@ -16,9 +16,15 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role_id == 1) {
-            return $next($request);
+        try {
+
+
+            if (Auth::check() && Auth::user()->role_id == 1) {
+                return $next($request);
+            }
+            return response()->json(["res" => "error", "message" => "You don't have access to this route"]);
+        } catch (\Exception $e) {
+            return response()->json(["res" => "error", "message" => "You don't have access to this route", 'error' => $e->getMessage()]);
         }
-        return response()->json(["res" => "error", "message" => "You don't have access to this route"]);
     }
 }
