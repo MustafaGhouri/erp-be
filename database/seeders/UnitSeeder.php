@@ -15,16 +15,20 @@ class UnitSeeder extends Seeder
     {
         if (count(Unit::all()) == 0) {
             Unit::create([
-                "name" => "Pieces"
+                "name" => "Pieces",
+                "user_id" => 1
             ]);
             Unit::create([
-                "name" => "Kilo"
+                "name" => "Kilo",
+                "user_id" => 1
             ]);
             Unit::create([
-                "name" => "Grams"
+                "name" => "Grams",
+                "user_id" => 1
             ]);
             Unit::create([
-                "name" => "Dozen"
+                "name" => "Dozen",
+                "user_id" => 1
             ]);
         }
     }

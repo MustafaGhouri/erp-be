@@ -14,19 +14,24 @@ class ProductCategorySeeder extends Seeder
     {
         if (count(ProductCategory::all()) == 0) {
             ProductCategory::create([
-                "name" => "all"
+                "name" => "all",
+                "user_id" => 1
             ]);
             ProductCategory::create([
-                "name" => "React"
+                "name" => "React",
+                "user_id" => 1
             ]);
             ProductCategory::create([
-                "name" => "Angular"
+                "name" => "Angular",
+                "user_id" => 1
             ]);
             ProductCategory::create([
-                "name" => "Vue"
+                "name" => "Vue",
+                "user_id" => 1
             ]);
             ProductCategory::create([
-                "name" => "Svelte"
+                "name" => "Svelte",
+                "user_id" => 1
             ]);
         }
     }
