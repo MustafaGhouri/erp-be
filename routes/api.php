@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\AllAuthController;
 use App\Http\Controllers\Common\ProductCategroyController;
-use App\Http\Controllers\c\Common\ProductController as CommonProductController;
+use App\Http\Controllers\Common\ProductController as CommonProductController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
