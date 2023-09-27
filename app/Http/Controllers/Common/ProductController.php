@@ -111,6 +111,9 @@ class ProductController extends Controller
     public function list()
     {
         try {
+            $product = Product::orderBy('id', 'DESC')->get();
+
+            return response()->json(['status' => "success", "message" =>  'Successfully data found', 'data' => $product]);
         } catch (\Exception $e) {
             return response()->json(['status' => "error", "message" =>  'Someting wrong while retrieving the data', 'error' => $e->getMessage()]);
         }
