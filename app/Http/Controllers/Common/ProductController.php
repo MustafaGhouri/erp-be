@@ -44,11 +44,7 @@ class ProductController extends Controller
             ]);
 
             if ($product) {
-                $qrCodeGenerated = $this->generateQRCode($product->id, $product->slug);
-
-                if ($qrCodeGenerated) {
-                    return $qrCodeGenerated;
-                }
+                return response()->json(['status' => "success", "message" =>  'Product successfully stored']);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => "error", "message" =>  'Something went wrong while storing the data', 'error' => $e->getMessage()]);
@@ -63,7 +59,7 @@ class ProductController extends Controller
 
             // Define the directory path to save the QR code
             $directory = public_path('uploads/qrcodes');
-           $logo = public_path('uploads/website/logo.png');
+            $logo = public_path('uploads/website/logo.png');
             // $qrCode = QrCode::size(200)
             //     ->errorCorrection('M')
             //     ->generate($id);
