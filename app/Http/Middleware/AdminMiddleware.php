@@ -18,8 +18,7 @@ class AdminMiddleware
     {
         if (Auth::check() && Auth::user()->role_id == 1) {
             return $next($request);
-        } else {
-            return response()->json(["res" => "error", "message" => "You don't have access to this route"]);
         }
+        return response()->json(["res" => "error", "message" => "You don't have access to this route"]);
     }
 }
