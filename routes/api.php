@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\AllAuthController;
 use App\Http\Controllers\Common\ProductCategroyController;
-use App\Http\Controllers\c\Common\ProductController;
+use App\Http\Controllers\c\Common\ProductController as CommonProductController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +36,9 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], function () {
 
     //Product Routes Start
-    Route::group(["prefix" => "product"], function () {
-        Route::post('/store', [ProductController::class, 'store']);
-        Route::get('/list', [ProductController::class, 'list']);
+    Route::group(["prefix" => "products"], function () {
+        Route::post('/store', [CommonProductController::class, 'store']);
+        Route::get('/list', [CommonProductController::class, 'list']);
     });
     //Product Routes End
 
