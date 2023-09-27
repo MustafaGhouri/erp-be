@@ -1,23 +1,18 @@
 <IfModule mod_rewrite.c>
+    Options +FollowSymLinks
     RewriteEngine On
-    RewriteBase /
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Handle Front Controller...
+    RewriteCond %{REQUEST_URI} !^/public/
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    RewriteRule ^(.*)$ /public/$1
+    #RewriteRule ^ index.php [L]
+    RewriteRule ^(/)?$ /public/index.php [L]
+    
+    # Set PHP version
+    <FilesMatch "\.php$">
+        SetHandler application/x-lsphp81
+    </FilesMatch>
+
 </IfModule>
 
-# Disable directory listings
-Options -Indexes
-
-# Protect .env file
-<Files .env>
-    Order Allow,Deny
-    Deny from all
-</Files>
+php_value memory_limit 256M
