@@ -40,7 +40,7 @@ class ProductCategroyController extends Controller
     {
         try {
 
-            $data = ProductCategory::orderBy('id', 'desc')->all();
+            $data = ProductCategory::orderBy('id', 'desc')->get();
 
             return response()->json(['status' => 'success', 'meessage' => 'Product category successfully retrieved', 'data' => $data]);
         } catch (\Exception $e) {
