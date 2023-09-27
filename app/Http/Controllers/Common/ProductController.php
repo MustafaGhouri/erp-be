@@ -5,11 +5,7 @@ namespace App\Http\Controllers\common;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Mockery\Expectation;
-use BaconQrCode\Renderer\Image\Png;
-use GrahamCampbell\ResultType\Success;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator; 
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
