@@ -66,7 +66,7 @@ class ProductController extends Controller
             $logo = public_path('uploads/website/logo.png');
          
             $image = QrCode::format('png')
-                ->merge($logo, 1, true)
+                ->merge($logo, .4, true)
                 ->size(200)->errorCorrection('H')
                 ->generate($id);
 
