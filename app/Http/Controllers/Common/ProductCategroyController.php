@@ -24,13 +24,13 @@ class ProductCategroyController extends Controller
                 return response()->json(['status' => "warning", "message" => $validator->errors()]);
             }
 
-            ProductCategory::create([
+            $create =  ProductCategory::create([
                 'name' => $request->name,
                 'user_id' => $user_id
             ]);
 
 
-            return response()->json(['status' => 'success', 'meessage' => 'Product category stored successfully']);
+            return response()->json(['status' => 'success', 'meessage' => 'Product category stored successfully', 'data' => $create]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'warning', 'meessage' => 'Something while storing the data', 'error' => $e->getMessage()]);
         }
@@ -41,8 +41,11 @@ class ProductCategroyController extends Controller
         try {
 
             $data = ProductCategory::orderBy('id', 'desc')->get();
+            if (!empty($data)) {
 
-            return response()->json(['status' => 'success', 'meessage' => 'Product category successfully retrieved', 'data' => $data]);
+                return response()->json(['status' => 'success', 'meessage' => 'Product category successfully retrieved', 'data' => $data]);
+            }
+            return response()->json(['status' => 'warning', 'meessage' => 'Product category not found', 'data' => []]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'warning', 'meessage' => 'Something while retrieving the data', 'error' => $e->getMessage()]);
         }
