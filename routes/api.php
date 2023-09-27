@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
-Route::get('/list', [ProductCategroyController::class, 'list']);
+*/ 
 // Auth Start
 Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
     Route::post('login', [AllAuthController::class, 'login'])->name('login');
@@ -48,7 +47,7 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     Route::group(["prefix" => "product-category"], function () {
         Route::post('/store', [ProductCategroyController::class, 'store']);
         Route::get('/list', [ProductCategroyController::class, 'list']);
-        Route::post('/list/{id}', [ProductCategroyController::class, 'update']);
+        Route::post('/update/{id}', [ProductCategroyController::class, 'update']);
         Route::get('/destroy/{id}', [ProductCategroyController::class, 'destroy']);
     });
     //Product Category Routes End
