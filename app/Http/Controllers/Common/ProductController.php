@@ -22,12 +22,10 @@ class ProductController extends Controller
                 "category" => 'required',
                 "unit" => 'required',
                 "alert_qty" => 'required',
-            ], [
-                "title.unique" => "The product name has already been taken.",
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['status' => "warning", 'message' => 'Name should be unique and min 4 characters', 'error' => $validator->errors()]);
+                return response()->json(['status' => "warning", 'message' => $validator->errors()]);
             }
 
             $product = Product::create([
