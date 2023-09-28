@@ -30,9 +30,9 @@ class ProductCategroyController extends Controller
             ]);
 
 
-            return response()->json(['status' => 'success', 'meessage' => 'Product category stored successfully', 'data' => $create]);
+            return response()->json(['status' => 'success', 'message' => 'Product category stored successfully', 'data' => $create]);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'warning', 'meessage' => 'Something while storing the data', 'error' => $e->getMessage()]);
+            return response()->json(['status' => 'warning', 'message' => 'Something while storing the data', 'error' => $e->getMessage()]);
         }
     }
 
@@ -43,11 +43,11 @@ class ProductCategroyController extends Controller
             $data = ProductCategory::orderBy('id', 'desc')->get();
             if (!empty($data)) {
 
-                return response()->json(['status' => 'success', 'meessage' => 'Product category successfully retrieved', 'data' => $data]);
+                return response()->json(['status' => 'success', 'message' => 'Product category successfully retrieved', 'data' => $data]);
             }
-            return response()->json(['status' => 'warning', 'meessage' => 'Product category not found', 'data' => []]);
+            return response()->json(['status' => 'warning', 'message' => 'Product category not found', 'data' => []]);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'warning', 'meessage' => 'Something while retrieving the data', 'error' => $e->getMessage()]);
+            return response()->json(['status' => 'warning', 'message' => 'Something while retrieving the data', 'error' => $e->getMessage()]);
         }
     }
 
@@ -64,9 +64,9 @@ class ProductCategroyController extends Controller
                 'name' => $request->name
             ]);
 
-            return response()->json(['status' => 'success', 'meessage' => 'Product category successfully updated']);
+            return response()->json(['status' => 'success', 'message' => 'Product category successfully updated']);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'warning', 'meessage' => 'Something while updating the data', 'error' => $e->getMessage()]);
+            return response()->json(['status' => 'warning', 'message' => 'Something while updating the data', 'error' => $e->getMessage()]);
         }
     }
 
@@ -74,9 +74,9 @@ class ProductCategroyController extends Controller
     {
         try {
             ProductCategory::destroy($id);
-            return response()->json(['status' => 'success', 'meessage' => 'Product category successfully destroed']);
+            return response()->json(['status' => 'success', 'message' => 'Product category successfully destroed']);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'warning', 'meessage' => 'Something while retrieving the data', 'error' => $e->getMessage()]);
+            return response()->json(['status' => 'warning', 'message' => 'Something while retrieving the data', 'error' => $e->getMessage()]);
         }
     }
 }
