@@ -27,7 +27,7 @@ class ProductController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['status' => "warning", "message" => $validator->errors()]);
+                return response()->json(['status' => "warning", 'message' => 'Name should be unique and min 4 characters', 'error' => $validator->errors()]);
             }
 
             $product = Product::create([
