@@ -139,8 +139,8 @@ class PrinterController extends Controller
         try {
 
             $printer = Printer::with(['region_detail', 'customer_detail', 'location_detail', 'department_detail', 'brand_detail', 'model_detail', 'user_detail'])->where('id', $id)->orderBy('id', 'desc')->first();
-            if (count($printer) == 0) {
-                return response()->json(['status' => 'warning', 'message' => 'Printers not found', 'data' => []]);
+            if (empty($printer)) {
+                return response()->json(['status' => 'warning', 'message' => 'Printer not found', 'data' => []]);
             }
 
             $data = [
@@ -158,7 +158,7 @@ class PrinterController extends Controller
                 'user' => $printer->user_detail->first_name . ' ' . $printer->user_detail->last_name,
             ];
 
-            return response()->json(['status' => 'success', 'message' => 'Printers successfully retrieved', 'data' => $data]);
+            return response()->json(['status' => 'success', 'message' => 'Printer successfully retrieved', 'data' => $data]);
         } catch (\Exception $th) {
             return response()->json(['status' => "warning", "message" => $th->getMessage()]);
         }
