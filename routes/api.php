@@ -121,6 +121,7 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     Route::group(["prefix" => "printer"], function () {
         Route::post('/store', [PrinterController::class, 'store']);
         Route::get('/list/{region}', [PrinterController::class, 'list_by_region']);
+        Route::get('/show/{id}', [PrinterController::class, 'show']);
     });
     //printer Routes End
 

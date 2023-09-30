@@ -133,4 +133,34 @@ class PrinterController extends Controller
             return response()->json(['status' => "warning", "message" => $th->getMessage()]);
         }
     }
+
+    public function show($id)
+    {
+        try {
+
+            $printer = Printer::with(['region_detail', 'customer_detail', 'location_detail', 'department_detail', 'brand_detail', 'model_detail', 'user_detail'])->where('id', $id)->orderBy('id', 'desc')->first();
+            if (count($printer) == 0) {
+                return response()->json(['status' => 'warning', 'message' => 'Printers not found', 'data' => []]);
+            }
+
+            $data = [
+                'id' => $printer->id,
+                'name' => $printer->name,
+                'serial_number' => $printer->serial_number,
+                'counter' => $printer->counter,
+                'qrcodes' => asset('public/uploads/qrcodes/' . $printer->qrCode),
+                'region' => $printer->region_detail->name,
+                'customer' => $printer->customer_detail->name,
+                'location' => $printer->location_detail->name,
+                'department' => $printer->department_detail->name,
+                'brand' => $printer->brand_detail->name,
+                'model' => $printer->model_detail->name,
+                'user' => $printer->user_detail->first_name . ' ' . $printer->user_detail->last_name,
+            ];
+
+            return response()->json(['status' => 'success', 'message' => 'Printers successfully retrieved', 'data' => $data]);
+        } catch (\Exception $th) {
+            return response()->json(['status' => "warning", "message" => $th->getMessage()]);
+        }
+    }
 }
