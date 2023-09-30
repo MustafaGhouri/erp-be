@@ -116,7 +116,7 @@ class PrinterController extends Controller
                     'name' => $printer->name,
                     'serial_number' => $printer->serial_number,
                     'counter' => $printer->counter,
-                    'qrcodes' => asset('public/uploads/qrcodes' . $printer->qrCode),
+                    'qrcodes' => asset('public/uploads/qrcodes/' . $printer->qrCode),
                     'region' => $printer->region_detail->name,
                     'customer' => $printer->customer_detail->name,
                     'location' => $printer->location_detail->name,
