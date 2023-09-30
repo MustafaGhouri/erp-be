@@ -15,7 +15,7 @@ class BrandsController extends Controller
             $user = auth()->user();
             $user_id = $user->id;
             $validator = Validator::make($request->all(), [
-                "name" => 'required|min:4|unique:product_category',
+                "name" => 'required|min:2|unique:product_category',
             ]);
 
             if ($validator->fails()) {
