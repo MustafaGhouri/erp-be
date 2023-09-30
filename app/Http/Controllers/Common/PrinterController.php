@@ -67,7 +67,7 @@ class PrinterController extends Controller
             $filename = 'GCS-PRINTER' . time() . '.png';
 
             // Define the directory path to save the QR code (use storage_path)
-            $directory = storage_path('app/public/uploads/printers/qrcodes');
+            $directory = public_path('public/uploads/printers/qrcodes');
             $logo = public_path('uploads/website/logo.png'); // Use public_path for public assets
 
             $image = QrCode::format('png')
