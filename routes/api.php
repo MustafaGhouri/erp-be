@@ -94,6 +94,7 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
         Route::post('/store', [LocationsController::class, 'store']);
         Route::get('/region-list/{id}', [LocationsController::class, 'list_by_region']);
         Route::get('/list', [LocationsController::class, 'list']);
+        Route::get('/destroy/{id}', [LocationsController::class, 'destroy']);
     });
     //Location Routes End
 

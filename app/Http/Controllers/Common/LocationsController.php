@@ -40,7 +40,7 @@ class LocationsController extends Controller
 
                 $dataToInsert[] = [
                     'name' => $name,
-                    'region' => 0,
+                    'region' => $request->region,
                     'user_id' => $user_id,
                     'created_at' => now(),
                 ];
@@ -70,7 +70,7 @@ class LocationsController extends Controller
 
             $location =  Location::create([
                 'name' => $request->name,
-                'region' => 0,
+                'region' => $request->region,
                 'user_id' => $user_id,
             ]);
 
