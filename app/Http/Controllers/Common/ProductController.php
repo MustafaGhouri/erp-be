@@ -19,8 +19,6 @@ class ProductController extends Controller
             $validator = Validator::make($request->all(), [
                 "title" => 'required|min:4|unique:products',
                 "slug" => 'required|min:4',
-                "serial_number" => 'required',
-                "model_number" => 'required',
                 "brand" => 'required',
                 "category" => 'required',
                 "unit" => 'required',
@@ -33,8 +31,8 @@ class ProductController extends Controller
 
             $product = Product::create([
                 'title' => $request->title,
-                'serial_number' => $request->serial_number,
-                'model_number' => $request->model_number,
+                'serial_number' => '',
+                'model_number' => '',
                 'brand' => $request->brand,
                 'slug' => $request->slug,
                 'category' => $request->category,
