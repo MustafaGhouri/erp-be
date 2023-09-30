@@ -19,6 +19,9 @@ class ProductController extends Controller
             $validator = Validator::make($request->all(), [
                 "title" => 'required|min:4|unique:products',
                 "slug" => 'required|min:4',
+                "serial_number" => 'required',
+                "model_number" => 'required',
+                "brand" => 'required',
                 "category" => 'required',
                 "unit" => 'required',
                 "alert_qty" => 'required',
@@ -30,6 +33,9 @@ class ProductController extends Controller
 
             $product = Product::create([
                 'title' => $request->title,
+                'serial_number' => $request->serial_number,
+                'model_number' => $request->model_number,
+                'brand' => $request->brand,
                 'slug' => $request->slug,
                 'category' => $request->category,
                 'unit' => $request->unit,
@@ -98,9 +104,63 @@ class ProductController extends Controller
     public function list()
     {
         try {
-            $product = Product::orderBy('id', 'DESC')->get();
+            $data = [];
+            $products = Product::with(['user', 'category', 'unit', 'brand'])->orderBy('id', 'DESC')->get();
 
-            return response()->json(['status' => "success", "message" =>  'Successfully data found', 'data' => $product]);
+            foreach ($products as $product) {
+                // Check if the relationships exist and are valid before accessing their properties
+                $unitData = null;
+                // if ($product->unit) {
+                //     $unitData = [
+                //         'id' => $product->unit->id,
+                //         'name' => $product->unit->name,
+                //     ];
+                // }
+
+                $categoryData = null;
+                // if ($product->category) {
+                //     $categoryData = [
+                //         'id' => $product->category->id,
+                //         'name' => $product->category->name,
+                //     ];
+                // }
+
+                $brandData = null;
+                // if ($product->brand) {
+                //     $brandData = [
+                //         'id' => $product->brand->id,
+                //         'name' => $product->brand->name,
+                //     ];
+                // }
+
+                $userData = null;
+                if ($product->user) {
+                    $userData = [
+                        'id' => $product->user->id,
+                        'first_name' => $product->user->first_name,
+                        'last_name' => $product->user->last_name,
+                        'email' => $product->user->email,
+                    ];
+                }
+
+                array_push($data, [
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'serial_number' => $product->serial_number,
+                    'model_number' => $product->model_number,
+                    'slug' => $product->slug,
+                    'alert_qty' => $product->alert_qty,
+                    'quantity' => $product->quantity,
+                    'qrcode' => asset('uploads/products/qrcodes/', $product->qrcode),
+                    'created_at' => $product->created_at,
+                    'unit' => $unitData,
+                    'category' => $categoryData,
+                    'brand' => $brandData,
+                    'user' => $userData,
+                ]);
+            }
+
+            return response()->json(['status' => "success", "message" =>  'Successfully data found', 'data' => $products]);
         } catch (\Exception $e) {
             return response()->json(['status' => "error", "message" =>  'Someting wrong while retrieving the data', 'error' => $e->getMessage()]);
         }

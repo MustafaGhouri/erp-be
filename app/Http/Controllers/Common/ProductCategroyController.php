@@ -16,12 +16,10 @@ class ProductCategroyController extends Controller
             $user_id = $user->id;
             $validator = Validator::make($request->all(), [
                 "name" => 'required|min:4|unique:product_category',
-            ], [
-                "name.unique" => "The product Category has already been taken.",
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['status' => "warning", "message" => 'Name should be unique and min 4 characters', $validator->errors()]);
+                return response()->json(['status' => "warning", "message" => $validator->errors()]);
             }
 
             $create =  ProductCategory::create([
