@@ -16,7 +16,7 @@ class ProductModelController extends Controller
             $user = auth()->user();
             $user_id = $user->id;
             $validator = Validator::make($request->all(), [
-                "name" => 'required|min:4',
+                "name" => 'required|min:2',
             ]);
 
             if ($validator->fails()) {
