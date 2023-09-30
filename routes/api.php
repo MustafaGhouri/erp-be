@@ -5,6 +5,7 @@ use App\Http\Controllers\Common\BrandsController;
 use App\Http\Controllers\Common\CustomerController;
 use App\Http\Controllers\Common\DepartmentController;
 use App\Http\Controllers\Common\LocationsController;
+use App\Http\Controllers\Common\PrinterController;
 use App\Http\Controllers\Common\ProductCategroyController;
 use App\Http\Controllers\Common\ProductController as CommonProductController;
 use App\Http\Controllers\Common\ProductModelController;
@@ -107,14 +108,20 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     });
     //department Routes End
 
-    //department Routes Start
+    //customer Routes Start
     Route::group(["prefix" => "customer"], function () {
         Route::post('/bulk-store', [CustomerController::class, 'bulk_store']);
         Route::post('/store', [CustomerController::class, 'store']);
         Route::get('/list', [CustomerController::class, 'list']);
         Route::get('/destroy/{id}', [CustomerController::class, 'destroy']);
     });
-    //department Routes End
+    //customer Routes End
+
+    //printer Routes Start
+    Route::group(["prefix" => "printer"], function () {
+        Route::post('/store', [PrinterController::class, 'store']);
+    });
+    //printer Routes End
 
 
 });
