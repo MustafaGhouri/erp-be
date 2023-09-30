@@ -66,18 +66,16 @@ class PrinterController extends Controller
             // Generate a unique filename for the QR code image
             $filename = 'GCS-PRINTER' . time() . '.png';
 
-            // Define the directory path to save the QR code
-            $directory = asset('public/uploads/printers/qrcodes');
-            $logo = asset('public/uploads/website/logo.png');
+            // Define the directory path to save the QR code (use storage_path)
+            $directory = storage_path('app/public/uploads/printers/qrcodes');
+            $logo = public_path('uploads/website/logo.png'); // Use public_path for public assets
 
             $image = QrCode::format('png')
                 ->merge($logo, .4, true)
                 ->size(200)->errorCorrection('H')
                 ->generate($id);
 
-            Storage::disk('local')->put($filename, $image);
-
-            // // Save the QR code image to the directory
+            // Save the QR code image to the directory
             file_put_contents($directory . '/' . $filename, $image);
 
             // Find the product by its ID
@@ -89,12 +87,12 @@ class PrinterController extends Controller
                     'qrCode' => $filename
                 ]);
 
-                return response()->json(['status' => "success", "message" =>  'Printer stored successfully', 'data' => $Printer]);
+                return response()->json(['status' => "success", "message" => 'Printer stored successfully', 'data' => $Printer]);
             } else {
-                return response()->json(['status' => "warning", "message" =>  'Printer not found']);
+                return response()->json(['status' => "warning", "message" => 'Printer not found']);
             }
         } catch (\Exception $th) {
-            return response()->json(['status' => "warning", "message" =>   $th->getMessage()]);
+            return response()->json(['status' => "warning", "message" => $th->getMessage()]);
         }
     }
 }
