@@ -64,7 +64,7 @@ class PrinterController extends Controller
     {
         try {
             // Generate a unique filename for the QR code image
-            $filename = 'GCS-PRINTER' . now() . '.png';
+            $filename = 'GCS-PRINTER' . time() . '.png';
 
             // Define the directory path to save the QR code
             $directory = public_path('uploads/printers/qrcodes');
