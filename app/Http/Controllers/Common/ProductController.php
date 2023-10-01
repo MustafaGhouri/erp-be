@@ -98,7 +98,24 @@ class ProductController extends Controller
         }
     }
 
+    public function search_product(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                "title" => 'required|min:2',
+            ]);
 
+            if ($validator->fails()) {
+                return response()->json(['status' => "warning", 'message' => $validator->errors()]);
+            }
+
+            $products = Product::where('title', $request->title)->orderBy('id', 'DESC')->get();
+
+            return response()->json(['status' => "success", "message" =>  'Successfully data found', 'data' => $products]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => "error", "message" =>  'Someting wrong while retrieving the data', 'error' => $e->getMessage()]);
+        }
+    }
     public function list()
     {
         try {

@@ -47,6 +47,7 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     Route::group(["prefix" => "products"], function () {
         Route::post('/store', [CommonProductController::class, 'store']);
         Route::get('/list', [CommonProductController::class, 'list']);
+        Route::get('/search-product', [CommonProductController::class, 'search_product']);
     });
     //Product Routes End
 
