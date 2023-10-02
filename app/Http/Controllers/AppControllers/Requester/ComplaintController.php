@@ -13,6 +13,9 @@ class ComplaintController extends Controller
     public function store(Request $request)
     {
         try {
+            if (!auth()->check()) {
+                return response()->json(['status' => 'warning', 'message' => 'User not found']);
+            }
             $requester = auth()->user();
             $requester_id = $requester->id;
 
@@ -28,7 +31,7 @@ class ComplaintController extends Controller
             }
 
             $printer = Printer::where('id', $request->printer)->first();
-            if (empty($printer)) {
+            if (empty($printer) || $printer == null) {
                 return response()->json(['status' => 'warning', 'message' => 'Printer not found']);
             }
 
