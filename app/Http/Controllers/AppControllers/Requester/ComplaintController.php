@@ -75,9 +75,9 @@ class ComplaintController extends Controller
             $data = [];
             $printer_data = [];
             if ($user->role_id == 3) {
-                $records = Complaint::whereRaw("DATE_FORMAT(created_at, '%m-%Y') = ?", [$monthYear])->where('requester', $user->id)->get();
+                $records = Complaint::whereRaw("DATE_FORMAT(created_at, '%m-%Y') = ?", [$monthYear])->where('requester', $user->id)->orderBy('desc')->get();
             } else if ($user->role_id == 2) {
-                $records = Complaint::whereRaw("DATE_FORMAT(created_at, '%m-%Y') = ?", [$monthYear])->where('tech', $user->id)->get();
+                $records = Complaint::whereRaw("DATE_FORMAT(created_at, '%m-%Y') = ?", [$monthYear])->where('tech', $user->id)->orderBy('desc')->get();
             }
 
             foreach ($records as $record) {
