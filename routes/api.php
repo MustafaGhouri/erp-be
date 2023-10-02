@@ -18,6 +18,9 @@ use App\Http\Controllers\AppControllers\Requester\ComplaintController as Request
 use App\Http\Controllers\AppControllers\Auth\AuthController as AppAuthController;
 
 
+// Technician Controller
+use App\Http\Controllers\AppControllers\Technician\ComplaintsController as TechnicianComplaintsController;
+
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +68,7 @@ Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isApplication']],
         Route::post('store', [RequesterComplaintController::class, 'store']);
         Route::get('my-complaints/{date}', [RequesterComplaintController::class, 'list']);
         Route::get('show/{id}', [RequesterComplaintController::class, 'show']);
+        Route::get('show-all', [TechnicianComplaintsController::class, 'show']);
     });
     // Requester Routes
 
