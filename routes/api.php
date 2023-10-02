@@ -49,7 +49,9 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 });
 // Auth End
 
-
+Route::group(['prefix' => 'app/auth', 'middleware' => 'api'], function () {
+    Route::post('login', [AppAuthController::class, 'login']);
+});
 
 Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isApplication']], function () {
     // Requester Routes
