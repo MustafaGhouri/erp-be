@@ -190,18 +190,11 @@ class AllAuthController extends Controller
                 "jurisdiction_id" => $request->jurisdiction_id,
             ]);
             $area_expertise_id = $request->input("area_expertise_id");
-            if (count($area_expertise_id) > 0) {
-                foreach ($area_expertise_id as $key => $value) {
-                    AreaExpertiseOfUsers::create([
-                        "user_id" => $user->id,
-                        "area_expertise_id" => $value
-                    ]);
-                }
-            }
+
             return response()->json([
                 "res" => "success",
                 "message" => "Your profile account all details update successfully!",
-                "users" => $this->user_detail(auth()->id),
+                "users" => $this->user_detail(auth()->user()->id),
             ]);
         }
     }
