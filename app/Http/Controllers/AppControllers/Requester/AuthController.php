@@ -29,7 +29,7 @@ class AuthController extends Controller
                 return response()->json(["res" => "error", "message" => "login failed because your account is not verified! Please check Your mail inbox!"]);
             }
             $token = Auth::attempt(['email' =>  $request->email, 'password' => $request->password, "status" => "1"]);
-            if ($user->role_id == 2 || $user->role_id == 4) {
+            if ($user->role_id == 2 || $user->role_id == 3) {
                 if ($token) {
                     User::where('id', auth()->user()->id)->update([
                         "is_online" => "1"
