@@ -418,6 +418,7 @@ class AllAuthController extends Controller
                 "email" => $user->email,
                 "status" => ($user->status == 1) ? "Active" : "Inactive",
                 "phone_number" => $user->phone_number,
+                "region" => $user->rigion,
             );
 
             return $data;

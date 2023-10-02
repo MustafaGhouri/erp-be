@@ -11,6 +11,11 @@ use App\Http\Controllers\Common\ProductController as CommonProductController;
 use App\Http\Controllers\Common\ProductModelController;
 use App\Http\Controllers\Common\RegionsController;
 use App\Http\Controllers\Common\UnitsController;
+
+//Requester Controller
+use App\Http\Controllers\AppControllers\Requester\PrinterController as RequesterPrinterController;
+
+
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +45,24 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 });
 // Auth End
 
-// Admin Start
-Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], function () {
+// Requester Start
+Route::group(["prefix" => "requester", "middleware" => ["auth:api", "isRequester"]], function () {
+    //Printer Routes Start
+    Route::group(["prefix" => "printer"], function () {
+        Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
+    });
+    //Printer Routes End
 
+    //Printer Routes Start
+    Route::group(["prefix" => "printer"], function () {
+        Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
+    });
+    //Printer Routes End
+});
+
+
+
+Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], function () {
     //Product Routes Start
     Route::group(["prefix" => "products"], function () {
         Route::post('/store', [CommonProductController::class, 'store']);

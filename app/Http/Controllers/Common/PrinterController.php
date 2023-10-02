@@ -110,7 +110,7 @@ class PrinterController extends Controller
             }
 
 
-            foreach ($printers as $key => $printer) {
+            foreach ($printers as $printer) {
                 array_push($data, [
                     'id' => $printer->id,
                     'name' => $printer->name,
@@ -149,13 +149,13 @@ class PrinterController extends Controller
                 'serial_number' => $printer->serial_number,
                 'counter' => $printer->counter,
                 'qrcodes' => asset('public/uploads/qrcodes/' . $printer->qrCode),
-                'region' => $printer->region_detail->name,
-                'customer' => $printer->customer_detail->name,
-                'location' => $printer->location_detail->name,
-                'department' => $printer->department_detail->name,
-                'brand' => $printer->brand_detail->name,
-                'model' => $printer->model_detail->name,
-                'user' => $printer->user_detail->first_name . ' ' . $printer->user_detail->last_name,
+                'region' =>  $printer->region_detail != null ? $printer->region_detail->name : '',
+                'customer' => $printer->customer_detail != null ? $printer->customer_detail->name : '',
+                'location' => $printer->location_detail != null ? $printer->location_detail->name : '',
+                'department' => $printer->department_detail != null ? $printer->department_detail->name : '',
+                'brand' =>  $printer->brand_detail != null ? $printer->brand_detail->name : '',
+                'model' => $printer->model_detail != null ?  $printer->model_detail->name : '',
+                'user' => $printer->user_detail != null ? $printer->user_detail->first_name . ' ' . $printer->user_detail->last_name : '',
             ];
 
             return response()->json(['status' => 'success', 'message' => 'Printer successfully retrieved', 'data' => $data]);
