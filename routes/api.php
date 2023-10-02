@@ -50,7 +50,8 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 // Auth End
 
 Route::group(['prefix' => 'app/auth', 'middleware' => 'api'], function () {
-    Route::post('login', [AppAuthController::class, 'login']);
+    // Route::post('login', [AppAuthController::class, 'login']);
+    Route::post('login', [AllAuthController::class, 'login'])->name('login');
 });
 
 Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isLawyer']], function () {
