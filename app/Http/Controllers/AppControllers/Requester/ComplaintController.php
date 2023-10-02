@@ -98,7 +98,7 @@ class ComplaintController extends Controller
                     'problem' => $record->problem,
                     'status' => $record->status,
                     'priority' => $record->priority,
-                    'created_at' => Date('DD-MM-YYYY', $record->created_at),
+                    'created_at' => date('d-m-Y', strtotime($record->created_at)),
                     'printer' => $printer_data,
                 ]);
             }
