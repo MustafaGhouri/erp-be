@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class RequesterMiddleware
+class ApplicationMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class RequesterMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role_id == 4) {
+        if (Auth::check() && Auth::user()->role_id == 4 || Auth::user()->role_id == 2) {
             return $next($request);
         } else {
             return response()->json(["res" => "error", "message" => "You don't have access to this route"]);

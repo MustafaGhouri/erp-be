@@ -34,15 +34,15 @@ Route::group(['prefix' => 'app/auth'], function () {
     Route::post('login', [AppAuthController::class, 'login'])->name('login');
 });
 
-Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isRequester']], function () {
+Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isApplication']], function () {
 
     // Requester Routes
-    Route::group(['prefix' => 'requester'], function () {
-        Route::group(['prefix' => 'printer'], function () {
-            Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
-        });
+    Route::group(['prefix' => 'printer'], function () {
+        Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
     });
-    
+    // Requester Routes
+
+
 });
 
 
