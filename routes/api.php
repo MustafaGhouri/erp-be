@@ -30,27 +30,27 @@ use Illuminate\Support\Facades\Route;
 */
 // Auth Start
 
+Route::group(['prefix' => 'app', 'middleware' => 'api'], function () {
 
-Route::group(['prefix' => "app", 'middleware' => 'api'], function () {
-
-    Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
+    // Authentication Routes
+    Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AppAuthController::class, 'login'])->name('login');
     });
-    // Requester Start
-    Route::group(["prefix" => "requester", "middleware" => ["auth:api", "isRequester"]], function () {
-        //Printer Routes Start
-        Route::group(["prefix" => "printer"], function () {
-            Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
-        });
-        //Printer Routes End
 
-        //Printer Routes Start
-        Route::group(["prefix" => "printer"], function () {
-            Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
+    // Requester Routes
+    Route::group(['prefix' => 'requester', 'middleware' => ['auth:api', 'isRequester']], function () {
+
+        // Printer Routes
+        Route::group(['prefix' => 'printer'], function () {
+            Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
         });
-        //Printer Routes End
+
+        // Other Requester Routes can be defined here
+
     });
 });
+
+
 Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
     Route::post('login', [AllAuthController::class, 'login'])->name('login');
     Route::post('register', [AllAuthController::class, 'register']);
