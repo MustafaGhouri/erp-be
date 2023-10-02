@@ -47,7 +47,7 @@ class ComplaintController extends Controller
             }
 
             $complaint = Complaint::create([
-                'complain_category' => $request->complaint_category,
+                'complain_category' => $request->complain_category,
                 'problem' => $request->problem,
                 'priority' => $request->priority,
                 'printer' => $printer->id,
