@@ -24,7 +24,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         } else {
-            $user = User::where('email', $request->email)->where('role_id', '3')->first();
+            $user = User::where('email', $request->email)->first();
             if (!empty($user) && $user->status == 0) {
                 return response()->json(["res" => "error", "message" => "login failed because your account is not verified! Please check Your mail inbox!"]);
             }
