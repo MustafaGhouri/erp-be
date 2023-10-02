@@ -29,7 +29,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (Exception $e, $request) {
-            if ($request->is('api/*')) {
+            if ($request->is('api/*') || $request->is('api/app/*')) {
                 return $this->handleApiException($request, $e);
             }
         });
