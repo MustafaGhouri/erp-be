@@ -58,7 +58,7 @@ class ComplaintController extends Controller
                 'department' => $printer->department,
                 'requester' => $requester_id,
                 'screenshot' => $imagename,
-                'status' => 'pending',
+                'status' => 'unAssign',
             ]);
 
             return response()->json(['status' => 'success', 'message' => 'Complaint submitted successfully.', 'data' => $complaint]);
