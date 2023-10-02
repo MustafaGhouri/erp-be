@@ -68,7 +68,7 @@ Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isApplication']],
         Route::post('store', [RequesterComplaintController::class, 'store']);
         Route::get('my-complaints/{date}', [RequesterComplaintController::class, 'list']);
         Route::get('show/{id}', [RequesterComplaintController::class, 'show']);
-        Route::get('show-all', [TechnicianComplaintsController::class, 'show']);
+        Route::get('list-all', [TechnicianComplaintsController::class, 'list']);
     });
     // Requester Routes
 
