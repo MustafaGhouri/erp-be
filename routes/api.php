@@ -51,7 +51,7 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 
 
 
-Route::group(['prefix' => 'lawyer', 'middleware' => ['auth:api', 'isLawyer']], function () {
+Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isApplication']], function () {
     // Requester Routes
     Route::group(['prefix' => 'printer'], function () {
         Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
