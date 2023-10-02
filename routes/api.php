@@ -29,24 +29,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Auth Start
+// Authentication Routes
+Route::group(['prefix' => 'app/auth'], function () {
+    Route::post('login', [AppAuthController::class, 'login'])->name('login');
+});
 
-Route::group(['prefix' => 'app', 'middleware' => 'api'], function () {
-
-    // Authentication Routes
-    Route::group(['prefix' => 'auth'], function () {
-        Route::post('login', [AppAuthController::class, 'login'])->name('login');
-    });
-
+Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isRequester']], function () {
     // Requester Routes
-    Route::group(['prefix' => 'requester', 'middleware' => ['auth:api', 'isRequester']], function () {
-
-        // Printer Routes
+    Route::group(['prefix' => 'requester'], function () {
         Route::group(['prefix' => 'printer'], function () {
             Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
         });
-
-        // Other Requester Routes can be defined here
-
     });
 });
 
