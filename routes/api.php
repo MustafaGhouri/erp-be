@@ -14,7 +14,7 @@ use App\Http\Controllers\Common\UnitsController;
 
 //Requester Controller
 use App\Http\Controllers\AppControllers\Requester\PrinterController as RequesterPrinterController;
-use App\Http\Controllers\AppControllers\Requester\AuthController as RequesterAuthController;
+use App\Http\Controllers\AppControllers\Auth\AuthController as AppAuthController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -29,6 +29,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Auth Start
+
+
+Route::group(['prefix' => "app", 'middleware' => 'api'], function () {
+
+    Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
+        Route::post('login', [AppAuthController::class, 'login'])->name('login');
+    });
+    // Requester Start
+    Route::group(["prefix" => "requester", "middleware" => ["auth:api", "isRequester"]], function () {
+        //Printer Routes Start
+        Route::group(["prefix" => "printer"], function () {
+            Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
+        });
+        //Printer Routes End
+
+        //Printer Routes Start
+        Route::group(["prefix" => "printer"], function () {
+            Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
+        });
+        //Printer Routes End
+    });
+});
 Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
     Route::post('login', [AllAuthController::class, 'login'])->name('login');
     Route::post('register', [AllAuthController::class, 'register']);
@@ -45,24 +67,6 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
     Route::get('user-profile', [AllAuthController::class, 'user_detail']);
 });
 // Auth End
-
-Route::group(['prefix' => "requester/auth", 'middleware' => 'api'], function () {
-    Route::post('login', [RequesterAuthController::class, 'login'])->name('login');
-});
-// Requester Start
-Route::group(["prefix" => "requester", "middleware" => ["auth:api", "isRequester"]], function () {
-    //Printer Routes Start
-    Route::group(["prefix" => "printer"], function () {
-        Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
-    });
-    //Printer Routes End
-
-    //Printer Routes Start
-    Route::group(["prefix" => "printer"], function () {
-        Route::get('/show/{id}', [RequesterPrinterController::class, 'show']);
-    });
-    //Printer Routes End
-});
 
 
 
