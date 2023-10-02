@@ -16,8 +16,14 @@ class LawyerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role_id == 3) {
-            return $next($request);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 3 || Auth::user()->role_id == 2) {
+
+                return $next($request);
+            } else {
+
+                return response()->json(["res" => "error", "message" => "You don't have access to this route"]);
+            }
         } else {
             return response()->json(["res" => "error", "message" => "You don't have access to this route"]);
         }
