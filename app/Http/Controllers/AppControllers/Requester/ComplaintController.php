@@ -58,10 +58,52 @@ class ComplaintController extends Controller
                 'department' => $printer->department,
                 'requester' => $requester_id,
                 'screenshot' => $imagename,
-                'status' => 'unAssign',
+                'status' => 'pending',
             ]);
 
             return response()->json(['status' => 'success', 'message' => 'Complaint submitted successfully.', 'data' => $complaint]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => "error", "message" =>  'Something went wrong while storing the complaint', 'error' => $e->getMessage()]);
+        }
+    }
+    public function list($date)
+    {
+        try {
+            $user  = auth()->user();
+            $user_id = $user->id;
+            $monthYear = $date;
+            $data = [];
+            $printer_data = [];
+            if ($user_id->role_id == 3) {
+                $records = Complaint::whereRaw("DATE_FORMAT(created_at, '%m-%Y') = ?", [$monthYear])->where('requester', $user->id)->get();
+            } else if ($user_id->role_id == 2) {
+                $records = Complaint::whereRaw("DATE_FORMAT(created_at, '%m-%Y') = ?", [$monthYear])->where('tech', $user->id)->get();
+            }
+
+            foreach ($records as $record) {
+
+                $printer = Printer::with(['brand_detail', 'model_detail'])->where('id', $record->printer)->first();
+
+                $printer_data = [
+                    'id' => $printer->id,
+                    'name' => $printer->name,
+                    'brand' => $printer->brand_detail->name,
+                    'model' => $printer->model_detail->name,
+                ];
+
+
+                array_push($data, [
+                    'id' => $record->id,
+                    'complain_category' => $record->complain_category,
+                    'problem' => $record->problem,
+                    'status' => $record->status,
+                    'priority' => $record->priority,
+                    'created_at' => $record->created_at,
+                    'printer' => $printer_data,
+                ]);
+            }
+
+            return response()->json(['status' => 'success', 'meesage' => 'Records successfully found', 'data' => $data]);
         } catch (\Exception $e) {
             return response()->json(['status' => "error", "message" =>  'Something went wrong while storing the complaint', 'error' => $e->getMessage()]);
         }

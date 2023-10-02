@@ -9,7 +9,7 @@ class Complaint extends Model
 {
     use HasFactory;
     protected $table = "complaints";
-    protected $fillable = [ 
+    protected $fillable = [
         "complain_category",
         "problem",
         "screenshot",
@@ -29,4 +29,9 @@ class Complaint extends Model
         "counter",
         "counter_file",
     ];
+
+    public function printer_detail()
+    {
+        return $this->belongsTo(Printer::class, 'printer', 'id');
+    }
 }
