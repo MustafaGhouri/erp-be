@@ -14,6 +14,7 @@ use App\Http\Controllers\Common\UnitsController;
 
 //Requester Controller
 use App\Http\Controllers\AppControllers\Requester\PrinterController as RequesterPrinterController;
+use App\Http\Controllers\AppControllers\Requester\AuthController as RequesterAuthController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,9 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 });
 // Auth End
 
+Route::group(['prefix' => "requester/auth", 'middleware' => 'api'], function () {
+    Route::post('login', [RequesterAuthController::class, 'login'])->name('login');
+});
 // Requester Start
 Route::group(["prefix" => "requester", "middleware" => ["auth:api", "isRequester"]], function () {
     //Printer Routes Start
