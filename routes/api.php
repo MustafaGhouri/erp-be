@@ -14,6 +14,7 @@ use App\Http\Controllers\Common\UnitsController;
 
 //Requester Controller
 use App\Http\Controllers\AppControllers\Requester\PrinterController as RequesterPrinterController;
+use App\Http\Controllers\AppControllers\Requester\ComplaintController as RequesterComplaintController;
 use App\Http\Controllers\AppControllers\Auth\AuthController as AppAuthController;
 
 
@@ -56,6 +57,12 @@ Route::group(['prefix' => 'app'], function () {
     // Requester Routes
     Route::group(['prefix' => 'printer'], function () {
         Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
+    });
+    // Requester Routes
+
+    // Requester Routes
+    Route::group(['prefix' => 'complaint'], function () {
+        Route::post('store', [RequesterComplaintController::class, 'store']);
     });
     // Requester Routes
 
