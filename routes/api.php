@@ -36,11 +36,15 @@ Route::group(['prefix' => 'app/auth'], function () {
 
 Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isRequester']], function () {
     // Requester Routes
-    Route::group(['prefix' => 'requester'], function () {
+    Route::group(['prefix' => 'requester', 'middleware' => ['auth:api', 'isRequester']], function () {
         Route::group(['prefix' => 'printer'], function () {
             Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
         });
     });
+
+
+
+    
 });
 
 
