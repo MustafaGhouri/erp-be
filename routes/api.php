@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 // Auth Start
 // Authentication Routes
-Route::group(['prefix' => 'app/auth'], function () {
+Route::group(['prefix' => 'app/auth', 'middleware' => 'api'], function () {
     Route::post('login', [AppAuthController::class, 'login']);
 });
 
