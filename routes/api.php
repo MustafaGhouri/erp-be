@@ -53,7 +53,7 @@ Route::group(['prefix' => 'app/auth', 'middleware' => 'api'], function () {
     Route::post('login', [AppAuthController::class, 'login']);
 });
 
-Route::group(['prefix' => 'app'], function () {
+Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isLawyer']], function () {
     // Requester Routes
     Route::group(['prefix' => 'printer'], function () {
         Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
@@ -62,7 +62,7 @@ Route::group(['prefix' => 'app'], function () {
 
     // Requester Routes
     Route::group(['prefix' => 'complaint'], function () {
-        Route::post('store', [RequesterComplaintController::class, 'store']);
+        Route::get('store', [RequesterComplaintController::class, 'store']);
     });
     // Requester Routes
 
