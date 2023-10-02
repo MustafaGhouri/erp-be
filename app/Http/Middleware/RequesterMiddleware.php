@@ -16,7 +16,7 @@ class RequesterMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role_id == 3) {
+        if (Auth::check() && Auth::user()->role_id == 4) {
             return $next($request);
         } else {
             return response()->json(["res" => "error", "message" => "You don't have access to this route"]);

@@ -19,25 +19,30 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         } else {
-            $user = User::where('email', $request->email)->where('role_id', '3')->first();
+            $user = User::where('email', $request->email)->first();
             if (!empty($user) && $user->status == 0) {
                 return response()->json(["res" => "error", "message" => "login failed because your account is not verified! Please check Your mail inbox!"]);
             }
-            $token = Auth::attempt(['email' =>  $request->email, 'password' => $request->password, "status" => "1"]);
+            if ($user->role_id == 2 || $user->role_id == 4) {
+                $token = Auth::attempt(['email' =>  $request->email, 'password' => $request->password, "status" => "1"]);
 
-            if ($token) {
-                User::where('id', auth()->user()->id)->update([
-                    "is_online" => "1"
-                ]);
-                return response()->json([
-                    "res" => "success",
-                    "message" => "Login Successfully!",
-                    "role_id" => auth()->user()->role_id,
-                    "token" => $this->respondWithToken($token),
-                    "user" => $this->user_detail(auth()->user()->id)
-                ]);
+                if ($token) {
+                    User::where('id', auth()->user()->id)->update([
+                        "is_online" => "1"
+                    ]);
+                    return response()->json([
+                        "res" => "success",
+                        "message" => "Login Successfully!",
+                        "role_id" => auth()->user()->role_id,
+                        "token" => $this->respondWithToken($token),
+                        "user" => $this->user_detail(auth()->user()->id)
+                    ]);
+                } else {
+                    return response()->json(["message" => "Incorrect Email and Password!", "res" => "warning"]);
+                }
             } else {
-                return response()->json(["message" => "Incorrect Email and Password!", "res" => "warning"]);
+
+                return response()->json(["message" => "Only tech and client allowed", "res" => "warning"]);
             }
         }
     }

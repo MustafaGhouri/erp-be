@@ -17,7 +17,7 @@ class ComplaintController extends Controller
             $requester_id = $requester->id;
 
             $validator = Validator::make($request->all(), ([
-                'complaint_category' => 'required',
+                'complain_category' => 'required',
                 'problem' => 'required',
                 'priority' => 'required',
                 'printer' => 'required',
@@ -63,5 +63,5 @@ class ComplaintController extends Controller
             return response()->json(['status' => "error", "message" =>  'Something went wrong while storing the complaint', 'error' => $e->getMessage()]);
         }
     }
-    
+
 }
