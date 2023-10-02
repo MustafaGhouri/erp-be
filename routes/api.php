@@ -30,9 +30,6 @@ use Illuminate\Support\Facades\Route;
 */
 // Auth Start
 // Authentication Routes
-Route::group(['prefix' => 'app/auth', 'middleware' => 'api'], function () {
-    Route::post('login', [AppAuthController::class, 'login']);
-});
 
 Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
     Route::post('login', [AllAuthController::class, 'login'])->name('login');
@@ -51,8 +48,11 @@ Route::group(['prefix' => "auth", 'middleware' => 'api'], function () {
 });
 // Auth End
 
+Route::group(['prefix' => 'app/auth', 'middleware' => 'api'], function () {
+    Route::post('login', [AppAuthController::class, 'login']);
+});
 
-Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isLawyer']], function () {
+Route::group(['prefix' => 'app'], function () {
     // Requester Routes
     Route::group(['prefix' => 'printer'], function () {
         Route::get('show/{id}', [RequesterPrinterController::class, 'show']);
