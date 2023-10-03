@@ -80,7 +80,7 @@ class ComplaintsController extends Controller
             if ($validator->fails()) {
                 return response()->json(['status' => 'warning', 'message' => $validator->errors()]);
             }
-            
+
             $complaint = Complaint::where('status', 'inProgress')->where('id', $request->id)->first();
             if (empty($complaint)) {
                 return response()->json(['status' => 'alreadyAssigned', 'message' => 'Already completed to someone']);
@@ -104,7 +104,7 @@ class ComplaintsController extends Controller
                 'counter_file' => $imagename,
                 'complete_date' => now(),
             ]);
-            return response()->json(['status' => 'success', 'message' => 'Successfully Assigned']);
+            return response()->json(['status' => 'success', 'message' => 'Successfully Completed']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'warning', 'message' => 'Something wrong, please try again!']);
         }
