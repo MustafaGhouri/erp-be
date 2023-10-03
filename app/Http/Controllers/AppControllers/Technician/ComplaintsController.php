@@ -74,7 +74,7 @@ class ComplaintsController extends Controller
 
             $validator = Validator::make($request->all(), [
                 "counter" => 'required',
-                "file" => 'file',
+                "file" => 'required',
             ]);
 
             if ($validator->fails()) {
