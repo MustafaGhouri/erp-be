@@ -33,11 +33,15 @@ class ComplaintsController extends Controller
                     'problem' => $record->problem,
                     'status' => $record->status,
                     'priority' => $record->priority,
+                    'counter' => $record->counter,
+                    'counter_file' => $record->counter_file,
+                    'complete_date' => $record->complete_date,
                     'created_at' => date('d-m-Y', strtotime($record->created_at)),
                     'printer' => $printer_data,
                     'customer' => $printer->customer_detail != null ? $printer->customer_detail->name : '',
                     'location' => $printer->location_detail != null ? $printer->location_detail->name : '',
                     'department' => $printer->department_detail != null ? $printer->department_detail->name : '',
+                   
                 ]);
             }
 

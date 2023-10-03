@@ -14,7 +14,7 @@ class Complaint extends Model
         "problem",
         "screenshot",
         "priority",
-        "printer", 
+        "printer",
         "description",
         "remarks",
         "region",
@@ -32,5 +32,15 @@ class Complaint extends Model
     public function printer_detail()
     {
         return $this->belongsTo(Printer::class, 'printer', 'id');
+    }
+
+    public function tech_detail()
+    {
+        return $this->belongsTo(User::class, 'tech', 'id');
+    }
+
+    public function requester_detail()
+    {
+        return $this->belongsTo(User::class, 'requester', 'id');
     }
 }
