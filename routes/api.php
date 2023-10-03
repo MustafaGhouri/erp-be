@@ -70,6 +70,7 @@ Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isApplication']],
         Route::get('show/{id}', [RequesterComplaintController::class, 'show']);
         Route::get('list-all', [TechnicianComplaintsController::class, 'list']);
         Route::get('self-assign/{id}', [TechnicianComplaintsController::class, 'assignComplaints']);
+        Route::post('complete-complaint', [TechnicianComplaintsController::class, 'completeComplaint']);
     });
     // Requester Routes
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Complaint;
 use App\Models\Printer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ComplaintsController extends Controller
 {
@@ -60,6 +61,48 @@ class ComplaintsController extends Controller
             $complaint->update([
                 'tech' => $user->id,
                 'status' => 'inProgress',
+            ]);
+            return response()->json(['status' => 'success', 'message' => 'Successfully Assigned']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'warning', 'message' => 'Something wrong, please try again!']);
+        }
+    }
+    public function completeComplaint(Request $request)
+    {
+        try {
+            $user = auth()->user();
+
+            $validator = Validator::make($request->all(), [
+                "counter" => 'required',
+                "file" => 'file',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['status' => 'warning', 'message' => $validator->errors()]);
+            }
+            
+            $complaint = Complaint::where('status', 'inProgress')->where('id', $request->id)->first();
+            if (empty($complaint)) {
+                return response()->json(['status' => 'alreadyAssigned', 'message' => 'Already completed to someone']);
+            }
+
+            $imagename = "";
+            $image = $request->file("file");
+            if ($image != "" && $image != null) {
+                $fileExtension = $image->getClientOriginalExtension();
+                $imagename = 'GCS-counters-' . $request->id . '-' . time() . '.' . $fileExtension;
+                // Replace any spaces in the image name
+                $imagename = str_replace(" ", "", $imagename);
+                $path = public_path() . '/uploads/counters/';
+                $image->move($path, $imagename);
+            }
+
+
+            $complaint->update([
+                'status' => 'completed',
+                'counter' => $request->counter,
+                'counter_file' => $imagename,
+                'complete_date' => now(),
             ]);
             return response()->json(['status' => 'success', 'message' => 'Successfully Assigned']);
         } catch (\Throwable $th) {
