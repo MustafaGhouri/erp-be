@@ -37,7 +37,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'is_online',
         'verification_code',
         'image',
-        'rigion',
+        'region',
         'customer',
         'location',
         'department',
