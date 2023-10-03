@@ -65,49 +65,25 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->belongsTo(Roles::class, 'role_id');
     }
-    public function country()
+
+    public function region_detail()
     {
-        return $this->belongsTo(Countries::class, "country_id");
+        return $this->belongsTo(Region::class, 'region', 'id');
     }
-    public function state()
+
+    public function customer_detail()
     {
-        return $this->belongsTo(States::class, "state_id");
+        return $this->belongsTo(Customer::class, 'customer', 'id');
     }
-    public function jurisdiction()
+
+    public function location_detail()
     {
-        return $this->belongsTo(Jurisdiction::class, "jurisdiction_id");
+        return $this->belongsTo(Location::class, 'location', 'id');
     }
-    public function lawyer_ratings()
+
+    public function department_detail()
     {
-        return $this->hasMany(LawyerRating::class, "lawyer_id");
-    }
-    public function lawyer_experties()
-    {
-        return $this->hasMany(AreaExpertiseOfUsers::class, 'user_id', 'id');
-    }
-    public function lawyer_appointments()
-    {
-        return $this->hasMany(Appointment::class, 'lawyer_id', 'id');
-    }
-    public function blogLikes()
-    {
-        return $this->hasMany(BlogUserLike::class, 'user_id', 'id');
-    }
-    public function withdraw_requests()
-    {
-        return $this->hasMany(WithdrawRequest::class, 'user_id', 'id');
-    }
-    public function cases()
-    {
-        return $this->hasMany(Cases::class, 'lawyer_id', 'id');
-    }
-    public function contracts()
-    {
-        return $this->hasMany(Contract::class, 'lawyer_id', 'id');
-    }
-    public function transactions_history()
-    {
-        return $this->hasMany(TransactionsHistory::class, 'user_id', 'id');
+        return $this->belongsTo(Department::class, 'department', 'id');
     }
 
     // Define attributes that need encryption and decryption

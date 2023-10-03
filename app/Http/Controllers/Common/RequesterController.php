@@ -53,4 +53,47 @@ class RequesterController extends Controller
             ]);
         }
     }
+
+    public function list()
+    {
+        try {
+            $data = [];
+            $requesters = User::with(['region_detail', 'customer_detail', 'location_detail', 'department_detail'])->where('status', '3')->orderBy('id', 'DESC')->get();
+
+            foreach ($requesters as  $requester) {
+                array_push($data, [
+                    'id' => $requester->id,
+                    'first_name' => $requester->first_name,
+                    'last_name' => $requester->last_name,
+                    'email' => $requester->email,
+                    'status' => $requester->status == 1 ? 'Active' : 'In-Active',
+                    'region' => [
+                        'id' => $requester->region_detail->id,
+                        'name' => $requester->region_detail->name,
+                    ],
+                    'customer' => [
+                        'id' => $requester->customer_detail->id,
+                        'name' => $requester->customer_detail->name,
+                    ],
+                    'location' => [
+                        'id' => $requester->location_detail->id,
+                        'name' => $requester->location_detail->name,
+                    ],
+                    'department' => [
+                        'id' => $requester->department_detail->id,
+                        'name' => $requester->department_detail->name,
+                    ],
+                ]);
+            }
+
+
+            return response()->json(['status' => 'success', 'message' => 'Successfully requesters retrieved', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => "warning",
+                "message" => "Something wrong. Try again! ",
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 }
