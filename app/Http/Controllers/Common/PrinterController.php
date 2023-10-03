@@ -63,6 +63,7 @@ class PrinterController extends Controller
     public function generateQRCode($id)
     {
         try {
+            $data = [];
             // Generate a unique filename for the QR code image
             $filename = 'GCS-PRINTER' . time() . '.png';
 
@@ -82,15 +83,28 @@ class PrinterController extends Controller
             file_put_contents($directory . '/' . $filename, $image);
 
             // Find the product by its ID
-            $Printer = Printer::find($id);
+            $printer = Printer::with(['region_detail', 'customer_detail', 'location_detail', 'department_detail', 'brand_detail', 'model_detail', 'user_detail'])->where('id', $id)->first();
 
-            if ($Printer) {
+            if ($printer) {
                 // Update the Printer with the QR code path in the database
-                $Printer->update([
+                $printer->update([
                     'qrCode' => $filename
                 ]);
-
-                return response()->json(['status' => "success", "message" => 'Printer stored successfully', 'data' => $Printer]);
+                $data = [
+                    'id' => $printer->id,
+                    'name' => $printer->name,
+                    'serial_number' => $printer->serial_number,
+                    'counter' => $printer->counter,
+                    'qrcodes' => asset('public/uploads/qrcodes/' . $filename),
+                    'region' =>  $printer->region_detail != null ? $printer->region_detail->name : '',
+                    'customer' => $printer->customer_detail != null ? $printer->customer_detail->name : '',
+                    'location' => $printer->location_detail != null ? $printer->location_detail->name : '',
+                    'department' => $printer->department_detail != null ? $printer->department_detail->name : '',
+                    'brand' =>  $printer->brand_detail != null ? $printer->brand_detail->name : '',
+                    'model' => $printer->model_detail != null ?  $printer->model_detail->name : '',
+                    'user' => $printer->user_detail != null ? $printer->user_detail->first_name . ' ' . $printer->user_detail->last_name : '',
+                ];
+                return response()->json(['status' => "success", "message" => 'Printer stored successfully', 'data' => $data]);
             } else {
                 return response()->json(['status' => "warning", "message" => 'Printer not found']);
             }
