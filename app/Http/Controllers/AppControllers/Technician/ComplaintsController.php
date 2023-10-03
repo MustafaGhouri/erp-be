@@ -59,7 +59,7 @@ class ComplaintsController extends Controller
             }
             $complaint->update([
                 'tech' => $user->id,
-                'status' => 'pending',
+                'status' => 'inProgress',
             ]);
             return response()->json(['status' => 'success', 'message' => 'Successfully Assigned']);
         } catch (\Throwable $th) {
