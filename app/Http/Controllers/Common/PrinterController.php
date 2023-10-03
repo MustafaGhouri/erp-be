@@ -120,7 +120,7 @@ class PrinterController extends Controller
             $data = [];
             $printers = Printer::with(['region_detail', 'customer_detail', 'location_detail', 'department_detail', 'brand_detail', 'model_detail', 'user_detail'])->where('region', $region)->orderBy('id', 'desc')->get();
             if (count($printers) == 0) {
-                return response()->json(['status' => 'warning', 'message' => 'Printers not found', 'data' => []]);
+                return response()->json(['status' => 'success', 'message' => 'Printers not found', 'data' => []]);
             }
 
 
