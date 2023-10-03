@@ -173,9 +173,16 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     //Requster Routes Start
     Route::group(["prefix" => "requester"], function () {
         Route::post('/store', [RequesterController::class, 'store']);
-        Route::get('/list', [RequesterController::class, 'list']); 
+        Route::get('/list', [RequesterController::class, 'list']);
     });
     //Requster Routes End
+
+    //Technicians Routes Start
+    Route::group(["prefix" => "technician"], function () {
+        Route::post('/store', [TechnicianController::class, 'store']);
+        Route::get('/list', [TechnicianController::class, 'list']);
+    });
+    //Technicians Routes End
 
 
 });
