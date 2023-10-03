@@ -123,10 +123,10 @@ class ComplaintsController extends Controller
             Printer::where('id', $complaint->printer)->update([
                 'counter' => $request->counter
             ]);
-            
+
             return response()->json(['status' => 'success', 'message' => 'Successfully Completed']);
-        } catch (\Throwable $th) {
-            return response()->json(['status' => 'warning', 'message' => 'Something wrong, please try again!']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'warning', 'message' => 'Something wrong, please try again!', 'error' => $e->getMessage()]);
         }
     }
 }
