@@ -171,7 +171,7 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     //printer Routes End
 
     //Requster Routes Start
-    Route::group(["prefix" => "requster"], function () {
+    Route::group(["prefix" => "requester"], function () {
         Route::post('/store', [RequesterController::class, 'store']); 
     });
     //Requster Routes End
