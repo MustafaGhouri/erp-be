@@ -36,7 +36,7 @@ class ComplaintController extends Controller
             }
 
             $imagename = "";
-            $image = $request->file("image");
+            $image = $request->file("file");
             if ($image != "" && $image != null) {
                 $fileExtension = $image->getClientOriginalExtension();
                 $imagename = 'GCS-CMS-' . time() . '.' . $fileExtension;
