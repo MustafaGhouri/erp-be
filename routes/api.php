@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AllAuthController;
 use App\Http\Controllers\Common\BrandsController;
+use App\Http\Controllers\Common\ComplaintsController;
 use App\Http\Controllers\Common\CustomerController;
 use App\Http\Controllers\Common\DepartmentController;
 use App\Http\Controllers\Common\LocationsController;
@@ -181,6 +182,12 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     Route::group(["prefix" => "technician"], function () {
         Route::post('/store', [TechnicianController::class, 'store']);
         Route::get('/list', [TechnicianController::class, 'list']);
+    });
+    //Technicians Routes End
+
+    //Technicians Routes Start
+    Route::group(["prefix" => "complaint"], function () {
+        Route::get('/list/{id}/{date}', [ComplaintsController::class, 'list_by_region']); 
     });
     //Technicians Routes End
 
