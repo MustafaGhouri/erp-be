@@ -48,4 +48,22 @@ class ComplaintsController extends Controller
             return response()->json(['status' => "error", "message" =>  'Something went wrong while storing the complaint', 'error' => $e->getMessage()]);
         }
     }
+
+    public function assignComplaints($id)
+    {
+        try {
+            $user = auth()->user();
+            $complaint = Complaint::where('status', 'unAssign')->where('id', $id)->first();
+            if (empty($complaint)) {
+                return response()->json(['status' => 'alreadyAssigned', 'message' => 'Already assigned to someone']);
+            }
+            $complaint->update([
+                'tech' => $user->id,
+                'status' => 'pending',
+            ]);
+            return response()->json(['status' => 'success', 'message' => 'Successfully Assigned']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'warning', 'message' => 'Something wrong, please try again!']);
+        }
+    }
 }
