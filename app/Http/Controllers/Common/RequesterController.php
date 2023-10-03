@@ -58,7 +58,7 @@ class RequesterController extends Controller
     {
         try {
             $data = [];
-            $requesters = User::with(['region_detail', 'customer_detail', 'location_detail', 'department_detail'])->where('status', '3')->orderBy('id', 'DESC')->get();
+            $requesters = User::with(['region_detail', 'customer_detail', 'location_detail', 'department_detail'])->where('role_id', '3')->orderBy('id', 'DESC')->get();
 
             foreach ($requesters as  $requester) {
                 array_push($data, [
