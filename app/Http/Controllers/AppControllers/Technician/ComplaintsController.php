@@ -17,7 +17,7 @@ class ComplaintsController extends Controller
             $data = [];
             $printer_data = [];
 
-            $records = Complaint::where('requester', $user->region)->orderBy('id', 'DESC')->get();
+            $records = Complaint::where('region', $user->region)->orderBy('id', 'DESC')->get();
             foreach ($records as $record) {
                 $printer = Printer::with(['brand_detail', 'model_detail', 'customer_detail', 'location_detail', 'department_detail'])->where('id', $record->printer)->first();
 
