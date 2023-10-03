@@ -20,6 +20,7 @@ use App\Http\Controllers\AppControllers\Auth\AuthController as AppAuthController
 
 // Technician Controller
 use App\Http\Controllers\AppControllers\Technician\ComplaintsController as TechnicianComplaintsController;
+use App\Http\Controllers\AppControllers\Technician\CountersController as TechnicianCountersController;
 
 use Illuminate\Support\Facades\Route;
 /*
@@ -71,6 +72,12 @@ Route::group(['prefix' => 'app', 'middleware' => ['auth:api', 'isApplication']],
         Route::get('list-all', [TechnicianComplaintsController::class, 'list']);
         Route::get('self-assign/{id}', [TechnicianComplaintsController::class, 'assignComplaints']);
         Route::post('complete-complaint', [TechnicianComplaintsController::class, 'completeComplaint']);
+    });
+    // Requester Routes
+
+    // Requester Routes
+    Route::group(['prefix' => 'counter'], function () {
+        Route::post('store', [TechnicianCountersController::class, 'store']);
     });
     // Requester Routes
 
