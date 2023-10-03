@@ -129,4 +129,7 @@ class ComplaintsController extends Controller
             return response()->json(['status' => 'warning', 'message' => 'Something wrong, please try again!', 'error' => $e->getMessage()]);
         }
     }
+
+
+   
 }
