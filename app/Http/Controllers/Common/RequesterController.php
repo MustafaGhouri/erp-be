@@ -72,16 +72,16 @@ class RequesterController extends Controller
                         'name' => $requester->region_detail->name,
                     ],
                     'customer' => [
-                        'id' => $requester->customer_detail->id,
-                        'name' => $requester->customer_detail->name,
+                        'id' => $requester->customer_detail != null ? $requester->customer_detail->id : '',
+                        'name' => $requester->customer_detail != null ?  $requester->customer_detail->name : '',
                     ],
                     'location' => [
-                        'id' => $requester->location_detail->id,
-                        'name' => $requester->location_detail->name,
+                        'id' =>  $requester->location_detail != null ? $requester->location_detail->id : '',
+                        'name' =>  $requester->location_detail != null ? $requester->location_detail->name : '',
                     ],
                     'department' => [
-                        'id' => $requester->department_detail->id,
-                        'name' => $requester->department_detail->name,
+                        'id' => $requester->department_detail != null ? $requester->department_detail->id : '',
+                        'name' => $requester->department_detail != null ? $requester->department_detail->name : '',
                     ],
                 ]);
             }
