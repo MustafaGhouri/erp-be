@@ -10,6 +10,7 @@ use App\Http\Controllers\Common\ProductCategroyController;
 use App\Http\Controllers\Common\ProductController as CommonProductController;
 use App\Http\Controllers\Common\ProductModelController;
 use App\Http\Controllers\Common\RegionsController;
+use App\Http\Controllers\Common\RequesterController;
 use App\Http\Controllers\Common\UnitsController;
 
 //Requester Controller
@@ -168,6 +169,12 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
         Route::get('/show/{id}', [PrinterController::class, 'show']);
     });
     //printer Routes End
+
+    //Requster Routes Start
+    Route::group(["prefix" => "requster"], function () {
+        Route::post('/store', [RequesterController::class, 'store']); 
+    });
+    //Requster Routes End
 
 
 });

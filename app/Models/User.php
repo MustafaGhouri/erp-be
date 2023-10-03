@@ -36,9 +36,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'role_id',
         'is_online',
         'verification_code',
-        'image', 
+        'image',
         'rigion',
-        "balance", 
+        'customer',
+        'location',
+        'department',
+        "balance",
     ];
     /**
      * The attributes that should be hidden for serialization.
