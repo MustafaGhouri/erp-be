@@ -22,7 +22,7 @@ use App\Http\Controllers\AppControllers\Auth\AuthController as AppAuthController
 // Technician Controller
 use App\Http\Controllers\AppControllers\Technician\ComplaintsController as TechnicianComplaintsController;
 use App\Http\Controllers\AppControllers\Technician\CountersController as TechnicianCountersController;
-
+use App\Http\Controllers\Common\TechnicianController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
