@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AppControllers\Technician;
 
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
+use App\Models\CounterLog;
 use App\Models\Printer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -81,7 +82,7 @@ class ComplaintsController extends Controller
                 return response()->json(['status' => 'warning', 'message' => $validator->errors()]);
             }
 
-            $complaint = Complaint::where('status', 'inProgress')->where('id', $request->id)->first();
+            $complaint = Complaint::with(['printer_detail'])->where('status', 'inProgress')->where('id', $request->id)->first();
             if (empty($complaint)) {
                 return response()->json(['status' => 'alreadyAssigned', 'message' => 'Already completed to someone']);
             }
@@ -104,6 +105,25 @@ class ComplaintsController extends Controller
                 'counter_file' => $imagename,
                 'complete_date' => now(),
             ]);
+
+            CounterLog::create([
+                'printer' => $complaint->printer,
+                'user_id' => $user->id,
+                'complaint_id' => $complaint->id,
+                'before_counter' => $complaint->printer_detail->counter,
+                'counter' => $request->counter,
+                'counter_file' => $imagename,
+                'log_type' => 'complaint',
+                'region' => $complaint->printer_detail->region,
+                'customer' => $complaint->printer_detail->customer,
+                'location' => $complaint->printer_detail->location,
+                'department' => $complaint->printer_detail->department,
+            ]);
+
+            Printer::where('id', $complaint->printer)->update([
+                'counter' => $request->counter
+            ]);
+            
             return response()->json(['status' => 'success', 'message' => 'Successfully Completed']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'warning', 'message' => 'Something wrong, please try again!']);
