@@ -100,7 +100,7 @@ class ComplaintsController extends Controller
 
 
             $complaint->update([
-                'status' => 'completed',
+                'status' => 'complete',
                 'counter' => $request->counter,
                 'counter_file' => $imagename,
                 'complete_date' => now(),
