@@ -19,9 +19,33 @@ class CounterLog extends Model
         "counter",
         "counter_file",
         "log_type",
-        "region", 
+        "region",
         "customer",
         "location",
-        "department", 
+        "department",
     ];
+    public function printerDetails()
+    {
+        return $this->belongsTo(Printer::class,  'printer');
+    }
+    public function locationDetails()
+    {
+        return $this->belongsTo(Location::class,  'location');
+    }
+    public function customerDetails()
+    {
+        return $this->belongsTo(Customer::class,  'customer');
+    }
+    public function regionDetails()
+    {
+        return $this->belongsTo(Region::class,  'region');
+    }
+    public function complaintDetails()
+    {
+        return $this->belongsTo(Complaint::class,  'complaint_id');
+    }
+    public function userDetails()
+    {
+        return $this->belongsTo(User::class,  'user_id');
+    }
 }

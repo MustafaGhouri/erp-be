@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AllAuthController;
 use App\Http\Controllers\Common\BrandsController;
 use App\Http\Controllers\Common\ComplaintsController;
+use App\Http\Controllers\Common\CounterLogsController;
 use App\Http\Controllers\Common\CustomerController;
 use App\Http\Controllers\Common\DepartmentController;
 use App\Http\Controllers\Common\LocationsController;
@@ -185,11 +186,18 @@ Route::group(["prefix" => "admin", "middleware" => ["auth:api", "isAdmin"]], fun
     });
     //Technicians Routes End
 
-    //Technicians Routes Start
+    //Complaint Routes Start
     Route::group(["prefix" => "complaint"], function () {
         Route::get('/list/{id}/{date}', [ComplaintsController::class, 'list_by_region']); 
+        Route::get('/printer-list/{id}/{date}', [ComplaintsController::class, 'list_by_printer']); 
     });
-    //Technicians Routes End
+    //Complaint Routes End
+
+    //Complaint Routes Start
+    Route::group(["prefix" => "counter-log"], function () {
+        Route::get('/list/{id}/{date}', [CounterLogsController::class, 'list']);  
+    });
+    //Complaint Routes End
 
 
 });
