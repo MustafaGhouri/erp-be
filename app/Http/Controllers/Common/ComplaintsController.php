@@ -34,7 +34,7 @@ class ComplaintsController extends Controller
                     'status' => $record->status,
                     'priority' => $record->priority,
                     'counter' => $record->counter,
-                    'counter_file' => $record->counter_file,
+                    'counter_file' => $record->counter_file != null ? asset('uploads/counters/' . $record->counter_file) : '',
                     'complete_date' => $record->complete_date,
                     'created_at' => date('d-m-Y', strtotime($record->created_at)),
                     'printer' => $printer_data,
