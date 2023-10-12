@@ -86,7 +86,7 @@ class LocationsController extends Controller
             $locations =  Location::where('region', $id)->orderBy('id', 'DESC')->get();
 
             if (count($locations) == 0) {
-                return response()->json(['status' => 'warning', 'message' => "No data found", 'data' => []]);
+                return response()->json(['status' => 'success', 'message' => "No data found", 'data' => []]);
             }
 
             foreach ($locations as $location) {
