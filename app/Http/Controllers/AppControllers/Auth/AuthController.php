@@ -12,16 +12,20 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "email" => 'required|email',
-            "password" => 'required|min:6'
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        } else {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                "email" => 'required|email',
+                "password" => 'required|min:6'
+            ]);
+            if ($validator->fails()) {
+                $errorString = implode(' , ', $validator->errors()->all());
+                return response()->json(['res' => 'warning', 'message' => 'Validation Error: ' . $errorString, 'error' => $errorString]);
+            }
+
             $user = User::where('email', $request->email)->first();
             if (!empty($user) && $user->status == 0) {
-                return response()->json(["res" => "error", "message" => "login failed because your account is not verified! Please check Your mail inbox!"]);
+                return response()->json(["res" => "warning", "message" => "login failed because your account is not verified! Please check Your mail inbox!"]);
             }
             if ($user->role_id == 2 || $user->role_id == 3) {
                 $token = Auth::attempt(['email' =>  $request->email, 'password' => $request->password, "status" => "1"]);
@@ -44,6 +48,10 @@ class AuthController extends Controller
 
                 return response()->json(["message" => "Only tech and client allowed", "res" => "warning"]);
             }
+
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json(["message" => "Only tech and client allowed", "res" => "error", 'error' => $th->getMessage()]);
         }
     }
     public function user_detail($id = null)
